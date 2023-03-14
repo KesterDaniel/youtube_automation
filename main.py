@@ -13,12 +13,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# chrome_driver_path = "C:\development\chromedriver.exe"
-# chr_options = webdriver.ChromeOptions()
-# chr_options.add_experimental_option("detach", True)
-#
-# driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chr_options)
-# # driver.get("https://www.youtube.com/")
+chrome_driver_path = "C:\development\chromedriver.exe"
+chr_options = webdriver.ChromeOptions()
+chr_options.add_experimental_option("detach", True)
+
 
 r = sr.Recognizer()
 mic = sr.Microphone()
@@ -37,13 +35,11 @@ def listen():
 
 
 phrase = listen()
+print(phrase)
 
+driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chr_options)
+driver.get("https://www.youtube.com/watch?v=DqUd72pK15Y")
 
-
-# harvard = sr.AudioFile("harvard.wav")
-# with harvard as source:
-#     r.adjust_for_ambient_noise(source)
-#     audio = r.record(source)
-#
-# data = r.recognize_google(audio)
-# print(data)
+search_box = driver.find_element(By.NAME, "search_query")
+search_box.send_keys("Omah Lay godly")
+search_box.send_keys(Keys.ENTER)
